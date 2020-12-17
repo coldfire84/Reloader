@@ -90,7 +90,7 @@ metadata:
     group: com.stakater.platform
     provider: stakater
     version: v0.0.75
-    
+
   name: reloader-reloader
 spec:
   replicas: 1
@@ -110,10 +110,10 @@ spec:
         group: com.stakater.platform
         provider: stakater
         version: v0.0.75
-        
+
     spec:
       containers:
-      - image: "stakater/reloader:v0.0.75"
+      - image: "coldfire84/reloader:v0.0.75"
         imagePullPolicy: IfNotPresent
         name: reloader-reloader
 
@@ -128,10 +128,10 @@ spec:
           httpGet:
             path: /metrics
             port: http
-      securityContext: 
+      securityContext:
         runAsNonRoot: true
         runAsUser: 65534
-        
+
       serviceAccountName: reloader-reloader
 
 ---
