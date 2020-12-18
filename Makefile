@@ -1,11 +1,13 @@
 # note: call scripts from /scripts
 
+### Multi-Arch based on original work by @mdh02038: https://github.com/mdh02038/Reloader
+
 ### Build machine needs:
 # Golang and Make: sudo apt install golang make -y
 # Docker with: export DOCKER_CLI_EXPERIMENTAL=enabled
 # Docker login inorder to publish images: sudo docker login
 # Docker buildx environment: sudo docker buildx create --use
-# QEMU: sudo apt-get install -y qemu-user-static
+# QEMU for arm, arm64 etc. emuation: sudo apt-get install -y qemu-user-static
 
 ### To build/ publish multi-arch Docker images clone repo and execute: sudo make release-all
 
