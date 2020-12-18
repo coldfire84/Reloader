@@ -5,6 +5,17 @@
 # '-' ignores exit code
 # '+' only executes under 'make -n' or similar conditions
 
+# Example Loops
+#apps := $(shell ls)
+####looping in make itself
+#$(foreach var,$(apps),$(info In the loop running with make: $(var)))
+
+####loop in shell inside recipe
+#go:
+#    @for v in $(apps) ; do \
+#        echo inside recipe loop with sh command: $$v ; \
+#    done
+
 
 .PHONY: default build builder-image binary-image test stop clean-images clean push apply deploy release release-all manifest push clean-image
 
@@ -59,7 +70,13 @@ release-all:
 	-rm -rf ~/.docker/manifests/*
 	# Make arch-specific release
 	#set -e
-	$(foreach arch,$(ALL_ARCH),make release ARCH=${arch})
+	# $(foreach arch,$(ALL_ARCH),make release ARCH=${arch})
+
+    @for arch in $(ALL_ARCH) ; do \
+		echo Make release: $$arch
+        make release ARCH=$$arch ; \
+    done
+
 	#set -e
 	docker manifest push --purge $(REPOSITORY_GENERIC)
 
