@@ -21,8 +21,8 @@
 
 OS ?= linux
 ARCH ?= ???
-# ALL_ARCH ?= arm64 amd64
-ALL_ARCH ?= arm64
+ALL_ARCH ?= arm64 amd64
+#ALL_ARCH ?= arm64
 
 BUILDER ?= reloader-builder-${ARCH}
 BINARY ?= Reloader
