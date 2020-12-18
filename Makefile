@@ -72,10 +72,10 @@ release-all:
 	#set -e
 	# $(foreach arch,$(ALL_ARCH),make release ARCH=${arch})
 
-    @for arch in $(ALL_ARCH) ; do \
+	@for arch in $(ALL_ARCH) ; do \
 		echo Make release: $$arch ; \
-        make release ARCH=$$arch ; \
-    done
+		make release ARCH=$$arch ; \
+	done
 
 	#set -e
 	docker manifest push --purge $(REPOSITORY_GENERIC)
