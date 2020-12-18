@@ -1,6 +1,7 @@
 # note: call scripts from /scripts
 
 ### Multi-Arch based on original work by @mdh02038: https://github.com/mdh02038/Reloader
+### Additional useful link: https://medium.com/@artur.klauser/building-multi-architecture-docker-images-with-buildx-27d80f7e2408
 
 ### Build machine needs:
 # Golang and Make: sudo apt install golang make -y
@@ -8,6 +9,7 @@
 # Docker login inorder to publish images: sudo docker login
 # Docker buildx environment: sudo docker buildx create --use
 # QEMU for arm, arm64 etc. emuation: sudo apt-get install -y qemu-user-static
+# binfmt-support: sudo apt-get install -y binfmt-support
 
 ### To build/ publish multi-arch Docker images clone repo and execute: sudo make release-all
 
@@ -98,4 +100,4 @@ clean:
 apply:
 	kubectl apply -f deployments/manifests/ -n temp-reloader
 
-deploy: binary-image push applyo
+deploy: binary-image push apply
