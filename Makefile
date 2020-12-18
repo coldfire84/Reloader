@@ -50,14 +50,14 @@ build:
 
 builder-image:
 	echo Running builder-image
-	docker buildx build --platform ${OS}/${ARCH} --build-arg GOARCH=$(ARCH) --network host -t "${BUILDER}" -f build/package/Dockerfile.build .
+	docker buildx build --platform ${OS}/${ARCH} --build-arg GOARCH=$(ARCH) --network host -t "${BUILDER}" -f build/package/Dockerfile.build . --load
 
 reloader-${ARCH}.tar:
 	echo Running reloader
 	#docker buildx build --platform ${OS}/${ARCH} --build-arg GOARCH=$(ARCH) --network host -t "${BUILDER}" -f build/package/Dockerfile.build .
 	#docker run --network host --rm "${BUILDER}" > reloader-${ARCH}.tar
 
-	docker buildx build --platform ${OS}/${ARCH} --build-arg GOARCH=$(ARCH) -t "${BUILDER}" -f build/package/Dockerfile.build .
+	docker buildx build --platform ${OS}/${ARCH} --build-arg GOARCH=$(ARCH) -t "${BUILDER}" -f build/package/Dockerfile.build . --load
 	docker run --rm "${BUILDER}" > reloader-${ARCH}.tar
 
 binary-image: reloader-${ARCH}.tar
