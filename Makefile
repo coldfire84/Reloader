@@ -73,7 +73,7 @@ release-all:
 	# $(foreach arch,$(ALL_ARCH),make release ARCH=${arch})
 
     @for arch in $(ALL_ARCH) ; do \
-		echo Make release: $$arch
+		echo Make release: $$arch ; \
         make release ARCH=$$arch ; \
     done
 
