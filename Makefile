@@ -50,18 +50,18 @@ build:
 
 builder-image:
 	echo Running builder-image
-	docker buildx build --platform ${OS}/${ARCH} --build-arg GOARCH=$(ARCH) --network host -t "${BUILDER}" -f build/package/Dockerfile.build . --load
+	docker buildx build --platform ${OS}/${ARCH} --build-arg GOARCH=$(ARCH) --network host -t "${BUILDER}" --load -f build/package/Dockerfile.build .
 
 reloader-${ARCH}.tar:
 	echo Running reloader
 	#docker buildx build --platform ${OS}/${ARCH} --build-arg GOARCH=$(ARCH) --network host -t "${BUILDER}" -f build/package/Dockerfile.build .
 	#docker run --network host --rm "${BUILDER}" > reloader-${ARCH}.tar
 
-	docker buildx build --platform ${OS}/${ARCH} --build-arg GOARCH=$(ARCH) -t "${BUILDER}" -f build/package/Dockerfile.build . --load
+	docker buildx build --platform ${OS}/${ARCH} --build-arg GOARCH=$(ARCH) -t "${BUILDER}" --load -f build/package/Dockerfile.build .
 	docker run --platform ${OS}/${ARCH} --rm "${BUILDER}" > reloader-${ARCH}.tar
 
 binary-image: reloader-${ARCH}.tar
-	cat reloader-${ARCH}.tar | docker buildx build --platform ${OS}/${ARCH} -t "${REPOSITORY_ARCH}"  -f Dockerfile.run -
+	cat reloader-${ARCH}.tar | docker buildx build --platform ${OS}/${ARCH} -t "${REPOSITORY_ARCH}"  --load -f Dockerfile.run -
 
 push:
 	docker push ${REPOSITORY_ARCH}
