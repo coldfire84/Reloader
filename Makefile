@@ -3,16 +3,17 @@
 ### Build machine needs:
 # Golang and Make: sudo apt install golang make -y
 # Docker with: export DOCKER_CLI_EXPERIMENTAL=enabled
+# Docker login inorder to publish images: sudo docker login
 # Docker buildx environment: sudo docker buildx create --use
 # QEMU: sudo apt-get install -y qemu-user-static
 
+### To build/ publish multi-arch Docker images clone repo and execute: sudo make release-all
 
 .PHONY: default build builder-image binary-image test stop clean-images clean push apply deploy release release-all manifest push clean-image
 
 OS ?= linux
 ARCH ?= ???
-ALL_ARCH ?= arm64 amd64
-#ALL_ARCH ?= arm64
+ALL_ARCH ?= arm64 arm amd64
 
 BUILDER ?= reloader-builder-${ARCH}
 BINARY ?= Reloader
@@ -61,11 +62,11 @@ release-all:
 		make release ARCH=$$arch ; \
 	done
 
-	#set -e
+	set -e
 	docker manifest push --purge $(REPOSITORY_GENERIC)
 
 manifest:
-	#set -e
+	set -e
 	docker manifest create -a $(REPOSITORY_GENERIC) $(REPOSITORY_ARCH)
 	docker manifest annotate --arch $(ARCH) $(REPOSITORY_GENERIC)  $(REPOSITORY_ARCH)
 
