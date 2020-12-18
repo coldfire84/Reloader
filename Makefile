@@ -93,10 +93,6 @@ clean:
 	-"$(GOCMD)" clean -i
 	-rm -rf reloader-*.tar
 
-push: ## push the latest Docker image to DockerHub
-	echo Running push
-	docker push $(REPOSITORY)
-
 apply:
 	kubectl apply -f deployments/manifests/ -n temp-reloader
 
