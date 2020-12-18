@@ -58,14 +58,14 @@ release-all:
 	echo Running release-all
 	-rm -rf ~/.docker/manifests/*
 	# Make arch-specific release
-	set -e
+	#set -e
 	$(foreach arch,$(ALL_ARCH),make release ARCH=${arch})
-	set -e
+	#set -e
 	docker manifest push --purge $(REPOSITORY_GENERIC)
 
 manifest:
 	echo Running manifest
-	set -e
+	#set -e
 	docker manifest create -a $(REPOSITORY_GENERIC) $(REPOSITORY_ARCH)
 	docker manifest annotate --arch $(ARCH) $(REPOSITORY_GENERIC)  $(REPOSITORY_ARCH)
 
@@ -78,7 +78,7 @@ stop:
 clean-images: stop
 	echo Running clean-images
 	-docker rmi "${BINARY}"
-	set -e
+	#set -e
 	$(foreach arch,$(ALL_ARCH),make clean-image ARCH=${arch})
 	-docker rmi "${REPOSITORY_GENERIC}"
 
