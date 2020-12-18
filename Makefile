@@ -80,7 +80,7 @@ release-all:
 	# May need to remove alpine image in between
 	@for arch in $(ALL_ARCH) ; do \
 		echo Make release: $$arch ; \
-		-docker rmi golang
+		-docker rmi golang ; \
 		make release ARCH=$$arch ; \
 	done
 
