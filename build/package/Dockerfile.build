@@ -3,7 +3,8 @@ LABEL maintainer "Stakater Team"
 
 ARG GOARCH=amd64
 
-RUN apk -v --update \
+RUN uname -ra && \
+    apk -v --update \
     --no-cache \
     add git build-base
 
