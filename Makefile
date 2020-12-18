@@ -50,7 +50,8 @@ build:
 
 builder-image:
 	echo Running builder-image
-	docker buildx build --platform ${OS}/${ARCH} --build-arg GOARCH=$(ARCH) --network host -t "${BUILDER}" --load -f build/package/Dockerfile.build .
+	# docker buildx build --platform ${OS}/${ARCH} --build-arg GOARCH=$(ARCH) --network host -t "${BUILDER}" -f build/package/Dockerfile.build .
+	docker buildx build --platform ${OS}/${ARCH} --build-arg GOARCH=$(ARCH) -t "${BUILDER}" --load -f build/package/Dockerfile.build .
 
 reloader-${ARCH}.tar:
 	echo Running reloader
@@ -76,8 +77,10 @@ release-all:
 	#set -e
 	# $(foreach arch,$(ALL_ARCH),make release ARCH=${arch})
 
+	# May need to remove alpine image in between
 	@for arch in $(ALL_ARCH) ; do \
 		echo Make release: $$arch ; \
+		-docker rmi golang
 		make release ARCH=$$arch ; \
 	done
 
