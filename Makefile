@@ -21,7 +21,8 @@
 
 OS ?= linux
 ARCH ?= ???
-ALL_ARCH ?= arm64 amd64
+# ALL_ARCH ?= arm64 amd64
+ALL_ARCH ?= arm64
 
 BUILDER ?= reloader-builder-${ARCH}
 BINARY ?= Reloader
@@ -96,7 +97,13 @@ clean-images: stop
 	echo Running clean-images
 	-docker rmi "${BINARY}"
 	#set -e
-	$(foreach arch,$(ALL_ARCH),make clean-image ARCH=${arch})
+	#$(foreach arch,$(ALL_ARCH),make clean-image ARCH=${arch})
+
+	@for arch in $(ALL_ARCH) ; do \
+		echo Clean image: $$arch ; \
+		make clean-image ARCH=$$arch ; \
+	done
+
 	-docker rmi "${REPOSITORY_GENERIC}"
 
 clean-image:
