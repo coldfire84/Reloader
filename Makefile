@@ -3,7 +3,7 @@
 ### Multi-Arch based on original work by @mdh02038: https://github.com/mdh02038/Reloader
 ### Additional useful link: https://medium.com/@artur.klauser/building-multi-architecture-docker-images-with-buildx-27d80f7e2408
 
-### Build machine needs:
+### Build machine needs the following packages (tested on Ubuntu 20.04):
 # Golang and Make: sudo apt install golang make -y
 # Docker with: export DOCKER_CLI_EXPERIMENTAL=enabled
 # Docker login inorder to publish images: sudo docker login
